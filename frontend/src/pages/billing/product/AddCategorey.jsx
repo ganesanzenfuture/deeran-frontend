@@ -49,6 +49,10 @@ const [editHsnCode, setEditHsnCode] = useState("");
       setError("Brand and Category name are required");
       return;
     }
+    if (hsnCode && !/^\d+$/.test(hsnCode)) {
+      setError("HSN Code must be a number digits only");
+      return;
+    }
 
     try {
      await createCategory({
@@ -85,7 +89,10 @@ const [editHsnCode, setEditHsnCode] = useState("");
 
   const saveEdit = async (id) => {
     if (!editBrand || !editName.trim()) return;
-
+ if (editHsnCode && !/^\d+$/.test(editHsnCode)) {
+    toast.error("HSN Code must be number digits only ");
+    return;
+  }
     await updateCategory(id, {
       name: editName,
       brand_id: Number(editBrand),
@@ -186,10 +193,13 @@ if (endPage > totalPages) {
                 <div className="col-md-2">
               <input
                 type="text"
-                className="form-control"
+                className={`form-control ${error ? "is-invalid" : ""}`}
                 placeholder="HSN Code"
                 value={hsnCode}
-                onChange={(e) => setHsnCode(e.target.value)}
+                onChange={(e) => {
+                  setHsnCode(e.target.value);
+                  if (error) setError("");
+                }}
               />
             </div>
 

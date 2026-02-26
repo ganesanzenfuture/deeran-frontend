@@ -172,9 +172,9 @@ useEffect(() => {
     } else if (Number(price) <= 0) {
       err.price = "Price must be greater than 0";
     }
-    if (!hsnCode || !hsnCode.trim()) {
-        err.hsnCode = "HSN Code is required";
-      }
+    // if (!hsnCode || !hsnCode.trim()) {
+    //     err.hsnCode = "HSN Code is required";
+    //   }
 
       if (!cgstRate) {
         err.cgstRate = "CGST rate is required";
